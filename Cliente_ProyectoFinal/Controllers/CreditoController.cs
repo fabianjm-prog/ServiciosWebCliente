@@ -2,11 +2,20 @@
 
 namespace Cliente_ProyectoFinal.Controllers
 {
-    public class UsuarioController1 : Controller
+    public class CreditoController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
+
+
+        public async Task<IActionResult> create()
+        {
+
+            return View();
+        }
+
+
     }
 }
