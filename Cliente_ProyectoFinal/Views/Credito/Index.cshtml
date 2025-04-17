@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Cliente_ProyectoFinal.Models.Credito.Class_Credito>
+
+@{
+    ViewData["Title"] = "Lista de Creditos";
+}
+
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+
+@{
+    var SuccessDeleteMessage = TempData["SuccessDeleteMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(SuccessDeleteMessage))
+{
+    <div class="alert alert-success">
+        @SuccessDeleteMessage
+    </div>
+}
+@{
+    var SuccessInsertMessage = TempData["SuccessInsertMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(SuccessInsertMessage))
+{
+    <div class="alert alert-success">
+        @SuccessInsertMessage
+    </div>
+}
+
+
+<!-- Aquí va el código para mostrar la lista de productos -->
+
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Botón para crear un nuevo producto -->
+<a href="@Url.Action("Crear", "Credito")" class="btn btn-primary">Crear Nuevo Credito</a>
+<br />
+<br />
+
+<form asp-controller="Autenticacion" asp-action="Logout" method="post" style="display:inline;">
+    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+</form>
+
+
+<br />
+<br />
+
+
+<!-- Tabla para mostrar la lista de productos -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Credito ID</th>
+            <th>Cedula Encargado</th>
+            <th>Monto MAX</th>
+            <th>Saldo Actual</th>
+            <th>Fecha de Creacion</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Estado</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var credito in Model)
+        {
+            <tr>
+                <td>@credito.credito_ID</td>
+                <td>@credito.Cedula_P</td>
+                <td>@credito.monto_maximo.ToString("C")</td>
+                <td>@credito.saldo_actual.ToString("C")</td> <!-- Formato de moneda -->
+                <td>@credito.fecha_creacion</td>
+                <td>@credito.fecha_vencimiento</td>
+                <td>@credito.estado</td>
+
+
+
+                <td>
+                    <!-- Enlaces para editar y eliminar -->
+                    <a href="@Url.Action("Editar", "Producto", new { id = credito.credito_ID })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Eliminar", "Producto", new { id = credito.credito_ID })" class="btn btn-danger">Eliminar</a>
+
+                    <!-- Botón para ver video relacionado con este producto -->
+                    <a href="@Url.Action("VerVideo", "Producto")" class="btn btn-info">Ver Video</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

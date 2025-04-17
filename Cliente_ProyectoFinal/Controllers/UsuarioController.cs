@@ -2,7 +2,7 @@
 
 namespace Cliente_ProyectoFinal.Controllers
 {
-    public class UsuarioController1 : Controller
+    public class UsuarioController : Controller
     {
         public IActionResult Index()
         {
