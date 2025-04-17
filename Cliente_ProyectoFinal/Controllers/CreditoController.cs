@@ -66,7 +66,7 @@ namespace Cliente_ProyectoFinal.Controllers
                     return RedirectToAction("Index");
                 }
                 else
-                {
+        {
                     ModelState.AddModelError("", mensajeError);
                 }
             }
