@@ -1,0 +1,55 @@
+﻿@model List<Cliente_ProyectoFinal.Models.Credito.Class_Credito>
+
+@{
+    ViewData["Title"] = "Buscar Créditos por Cédula";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form method="post" asp-action="BuscarCredito">
+    <div class="form-group">
+        <label for="cedula">Cédula</label>
+        <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Ingrese la cédula" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-warning mt-3">
+        @ViewBag.Mensaje
+    </div>
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Credito ID</th>
+                <th>Cedula</th>
+                <th>Monto Máximo</th>
+                <th>Saldo Actual</th>
+                <th>Fecha Creación</th>
+                <th>Fecha Vencimiento</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var credito in Model)
+            {
+                <tr>
+                    <td>@credito.credito_ID</td>
+                    <td>@credito.Cedula_P</td>
+                    <td>@credito.monto_maximo</td>
+                    <td>@credito.saldo_actual</td>
+                    <td>@credito.fecha_creacion.ToString("dd/MM/yyyy")</td>
+                    <td>@credito.fecha_vencimiento.ToString("dd/MM/yyyy")</td>
+                    <td>@credito.estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

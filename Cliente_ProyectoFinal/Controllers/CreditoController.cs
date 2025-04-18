@@ -20,29 +20,48 @@ namespace Cliente_ProyectoFinal.Controllers
             _creditoService = creditoService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            try
-            {
-                Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, private";
-                Response.Headers["pragma"] = "no-cache";
-                Response.Headers["Expires"] = "-1";
+        //public async Task<IActionResult> ObtenerCreditos()
+        //{
+        //    try
+        //    {
+        //        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, private";
+        //        Response.Headers["pragma"] = "no-cache";
+        //        Response.Headers["Expires"] = "-1";
 
-                string token = HttpContext.Session.GetString("Token");
+        //        string token = HttpContext.Session.GetString("Token");
 
-                List<Class_Credito> creditos = await _creditoService.ObtenerCreditoAsync(token);
+        //        List<Class_Credito> creditos = await _creditoService.ObtenerCreditoAsync(token);
 
-                return View(creditos);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Error al obtener los creditos");
-                return View(new List<Class_Credito>());
-            }
+        //        return View("Credito/ObtenerCreditos",creditos);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError("", "Error al obtener los creditos");
+        //        return View("Credito/ObtenerCreditos",new List<Class_Credito>());
+        //    }
+        //}
 
+        //[HttpPost]
+        //public async Task<IActionResult> BuscarCredito(string CedulaP)
+        //{
+        //    try
+        //    {
+        //        string token = HttpContext.Session.GetString("Token");
+        //        var creditos = await _creditoService.BuscarCreditoAsync(CedulaP, token);
 
+        //        if (creditos == null || creditos.Count == 0)
+        //        {
+        //            ViewBag.Mensaje = "No se encontraron créditos con esa cédula.";
+        //        }
 
-        }
+        //        return View("Credito/BuscarCreditosPorCedula", creditos);
+        //    }
+        //    catch
+        //    {
+        //        ViewBag.Mensaje = "Ocurrió un error al buscar los créditos.";
+        //        return View("Credito/BuscarCreditosPorCedula", new List<Class_Credito>());
+        //    }
+        //}
 
         [HttpGet]
         public IActionResult Crear()
