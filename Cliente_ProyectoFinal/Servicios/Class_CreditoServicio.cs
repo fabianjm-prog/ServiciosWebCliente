@@ -9,7 +9,10 @@ namespace Cliente_ProyectoFinal.Servicios
 {
     public class class_CreditoServicio
     {
-        private readonly string _baseUrl = "https://localhost:7076/api/";
+        private readonly string _baseUrl = "https://localhost:7076/api/";  //Create
+        //private readonly string _baseUrl = "https://localhost:7076/api/"; //Update
+        //private readonly string _baseUrl = "https://localhost:7076/api/"; //Delete
+        //private readonly string _baseUrl = "https://localhost:7076/api/"; //Read
 
         public async Task<List<Class_Credito>> ObtenerCreditoAsync(string token)
         {
@@ -27,6 +30,7 @@ namespace Cliente_ProyectoFinal.Servicios
                 return new List<Class_Credito>();
             }
         }
+
         public async Task<string> CrearCreditoAsync(Class_Credito credito, string token)
         {
 
