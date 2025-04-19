@@ -56,7 +56,7 @@ namespace Cliente_ProyectoFinal.Controllers
                     {
                         HttpContext.Session.SetString("Token", token);
 
-                        return RedirectToAction("Index", "MovimientosCredito");
+                        return RedirectToAction("Index", "Credito");
                     }
                     else
                     {

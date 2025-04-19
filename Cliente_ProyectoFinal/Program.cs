@@ -24,6 +24,8 @@ builder.Services.AddScoped<class_AutenticacionServicio>();
 
 builder.Services.AddScoped<class_CreditoServicio>();
 builder.Services.AddScoped<class_MovimientoCreditoServicio>();
+builder.Services.AddScoped<Class_PersonaServicio>();
+
 
 
 builder.Services.AddScoped<class_VerificarTokenFiltro>();
