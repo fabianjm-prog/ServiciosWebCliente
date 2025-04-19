@@ -93,8 +93,34 @@ namespace Cliente_ProyectoFinal.Controllers
 
             return View(credito);
         }
+       
 
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            string token = HttpContext.Session.GetString("Token");
+            var credito = await _creditoService.BuscarCreditoPorIdAsync(id, token);
+            if (credito == null) return NotFound();
+            return View(credito);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(int id, Class_Credito credito)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.Session.GetString("Token");
+                await _creditoService.ActualizarCreditoAsync(id, credito, token);
+                //return RedirectToAction(nameof(Index));
+                TempData["Mensaje"] = "Crédito creado exitosamente.";
+                return RedirectToAction("Index");
+            }
+            return View(credito);
+        }
+
+
 
 
 

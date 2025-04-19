@@ -6,12 +6,12 @@
 
         public string Cedula_P { get; set; }
 
-        public double monto_maximo { get; set; }
+        public decimal monto_maximo { get; set; }
 
-        public double saldo_actual { get; set; }
-        public DateTime fecha_creacion { get; set; }
+        public decimal saldo_actual { get; set; }
+        public DateTime? fecha_creacion { get; set; }
 
-        public DateTime fecha_vencimiento { get; set; }
-        public string estado { get; set; }
+        public DateTime? fecha_vencimiento { get; set; }
+        public string? estado { get; set; }
     }
 }

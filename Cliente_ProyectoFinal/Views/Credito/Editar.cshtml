@@ -15,62 +15,58 @@
     <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
 </form>
 
-
 <br />
 
 <form method="post">
+    <!-- Enviar el ID oculto -->
+    <input type="hidden" asp-for="credito_ID" />
+
     <div class="form-group">
-        <label for="Cedula_P">Cedula:</label>
-        <input type="text" class="form-control" id="Cedula_P" name="Cedula_P" required value="@Model?.Cedula_P" />
+        <label for="Cedula_P">Cédula:</label>
+        <input asp-for="Cedula_P" class="form-control" />
         @Html.ValidationMessageFor(m => m.Cedula_P, "", new { @class = "text-danger" })
     </div>
     <br />
 
-
-
     <div class="form-group">
-        <label for="monto_maximo">monto_maximo:</label>
-        <input type="number" class="form-control" id="monto_maximo" name="monto_maximo" required step="0.01" value="@Model?.monto_maximo" />
+        <label for="monto_maximo">Monto Máximo:</label>
+        <input asp-for="monto_maximo" type="number" class="form-control" step="0.01" />
         @Html.ValidationMessageFor(m => m.monto_maximo, "", new { @class = "text-danger" })
     </div>
     <br />
 
-
     <div class="form-group">
-        <label for="saldo_actual">saldo_actual:</label>
-        <input type="number" class="form-control" id="saldo_actual" name="saldo_actual" required value="@Model?.saldo_actual" />
+        <label for="saldo_actual">Saldo Actual:</label>
+        <input asp-for="saldo_actual" type="number" class="form-control" step="0.01" />
         @Html.ValidationMessageFor(m => m.saldo_actual, "", new { @class = "text-danger" })
     </div>
     <br />
 
     <div class="form-group">
-
-        <input type="hidden" name="fecha_creacion" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")" />
-
+        <!-- fecha_creacion como campo oculto -->
+        <input type="hidden" asp-for="fecha_creacion" />
         @Html.ValidationMessageFor(m => m.fecha_creacion, "", new { @class = "text-danger" })
     </div>
     <br />
 
     <div class="form-group">
-        <label for="fecha_vencimiento">fecha_vencimiento:</label>
-        <input type="datetime" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required value="@Model?.fecha_vencimiento" />
+        <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+        <input asp-for="fecha_vencimiento" type="date" class="form-control" />
         @Html.ValidationMessageFor(m => m.fecha_vencimiento, "", new { @class = "text-danger" })
     </div>
     <br />
 
     <div class="form-group">
         <label for="estado">Estado:</label>
-        <select name="estado" id="estado" class="form-control">
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Cancelado</option>
-            <option value="Vencido">Vencido</option>
-            
+        <select asp-for="estado" class="form-control">
+            <option value="Activo" selected="@("Activo" == Model.estado)">Activo</option>
+            <option value="Cancelado" selected="@("Cancelado" == Model.estado)">Cancelado</option>
+            <option value="Vencido" selected="@("Vencido" == Model.estado)">Vencido</option>
         </select>
+        @Html.ValidationMessageFor(m => m.estado, "", new { @class = "text-danger" })
     </div>
+    <br />
 
-
-
-    <button type="submit" class="btn btn-primary">Agregar</button>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
     <a href="@Url.Action("Index", "Credito")" class="btn btn-secondary">Cancelar</a>
 </form>
-

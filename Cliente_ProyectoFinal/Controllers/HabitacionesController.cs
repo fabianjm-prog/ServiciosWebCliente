@@ -2,22 +2,22 @@
 using Cliente_ProyectoFinal.Servicios;
 using Cliente_ProyectoFinal.Models.Credito;
 using System.Security.Cryptography.X509Certificates;
+using Cliente_ProyectoFinal.Models.Habitaciones;
 using Cliente_ProyectoFinal.Models.MovimientoCredito;
 
 namespace Cliente_ProyectoFinal.Controllers
 {
     [ServiceFilter(typeof(class_VerificarTokenFiltro))]
-
-
-    public class MovimientosCreditoController : Controller
+    public class HabitacionesController : Controller
     {
 
-        private readonly class_MovimientoCreditoServicio _movcreditoService;
-        
-        public MovimientosCreditoController(class_MovimientoCreditoServicio movcreditoService)
+        private readonly Class_HabitacionServicio _habitacionesService;
+
+        public HabitacionesController(Class_HabitacionServicio habitacionesService)
         {
-            _movcreditoService = movcreditoService;
+            _habitacionesService = habitacionesService;
         }
+
         public async Task<IActionResult> Index()
         {
             try
@@ -28,14 +28,14 @@ namespace Cliente_ProyectoFinal.Controllers
 
                 string token = HttpContext.Session.GetString("Token");
 
-                List<Class_MovimientoCredito> movcreditos = await _movcreditoService.ObtenermovCreditoAsync(token);
+                List<Class_Habitaciones> habi = await _habitacionesService.ObtenerHabitacionAsync(token);
 
-                return View(movcreditos);
+                return View(habi);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Error al obtener los movimientos creditos");
-                return View(new List<Class_MovimientoCredito>());
+                ModelState.AddModelError("", "Error al obtener las habitaciones");
+                return View(new List<Class_Habitaciones>());
             }
         }
 
@@ -46,18 +46,18 @@ namespace Cliente_ProyectoFinal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear(Class_MovimientoCredito movcredito)
+        public async Task<IActionResult> Crear(Class_Habitaciones habi)
         {
             if (ModelState.IsValid)
             {
                 string token = HttpContext.Session.GetString("Token");
-                
 
-                var mensajeError = await _movcreditoService.CrearMovCreditoAsync(movcredito, token);
+
+                var mensajeError = await _habitacionesService.CrearHabitacionAsync(habi, token);
 
                 if (mensajeError == null)
                 {
-                    TempData["Mensaje"] = "Crédito creado exitosamente.";
+                    TempData["Mensaje"] = "habitacion creada exitosamente.";
                     return RedirectToAction("Index");
                 }
                 else
@@ -66,8 +66,7 @@ namespace Cliente_ProyectoFinal.Controllers
                 }
             }
 
-            return View(movcredito);
+            return View(habi);
         }
-
     }
 }

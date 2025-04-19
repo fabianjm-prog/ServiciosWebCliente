@@ -72,6 +72,24 @@ namespace Cliente_ProyectoFinal.Servicios
                 }
             }
         }
+        public async Task<Class_Credito> BuscarCreditoPorIdAsync(int id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var response = await client.GetAsync(Class_Url.ReadUrl + $"Credito/BuscarCreditoPorId/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var jobject = JObject.Parse(json);
+                    return jobject["value"]?.ToObject<Class_Credito>();
+                }
+
+                return null;
+            }
+        }
+
 
         public async Task<bool> ActualizarCreditoAsync(int id, Class_Credito credito, string token)
         {
@@ -87,6 +105,7 @@ namespace Cliente_ProyectoFinal.Servicios
                 return response.IsSuccessStatusCode;
             }
         }
+
 
     }
 }

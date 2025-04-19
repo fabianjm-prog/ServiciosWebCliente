@@ -53,7 +53,7 @@
 
     <div class="form-group">
         <label for="fecha_vencimiento">fecha_vencimiento:</label>
-        <input type="datetime" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required value="@Model?.fecha_vencimiento" />
+        <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required value="@Model?.fecha_vencimiento" />
         @Html.ValidationMessageFor(m => m.fecha_vencimiento, "", new { @class = "text-danger" })
     </div>
     <br />

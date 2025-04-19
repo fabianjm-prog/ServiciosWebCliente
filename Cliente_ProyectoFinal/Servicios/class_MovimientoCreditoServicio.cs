@@ -17,7 +17,7 @@ namespace Cliente_ProyectoFinal.Servicios
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var response = await client.GetAsync(Class_Url.ReadUrl + "MovimientosCredito/ListaMovimientos");
+                var response = await client.GetAsync(Class_Url.ReadUrl + "MovimientoCreditos/ListaMovimientos");
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();

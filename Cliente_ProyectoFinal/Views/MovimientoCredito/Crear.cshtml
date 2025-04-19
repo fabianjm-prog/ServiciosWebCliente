@@ -1,0 +1,66 @@
+﻿@model Cliente_ProyectoFinal.Models.MovimientoCredito.Class_MovimientoCredito
+
+@{
+    ViewData["Title"] = "Crear Movimiento";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Mostrar resumen de errores -->
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<br />
+
+<form asp-controller="Autenticacion" asp-action="Logout" method="post" style="display:inline;">
+    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+</form>
+
+
+<br />
+
+<form method="post">
+    <div class="form-group">
+        <label for="credito_ID">credito_ID:</label>
+        <input type="number" class="form-control" id="credito_ID" name="credito_ID" required value="@Model?.credito_ID" />
+        @Html.ValidationMessageFor(m => m.credito_ID, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+
+
+    <div class="form-group">
+        <label for="tipo_movimiento">tipo_movimiento:</label>
+        <input type="text" class="form-control" id="tipo_movimiento" name="tipo_movimiento" required step="0.01" value="@Model?.tipo_movimiento" />
+        @Html.ValidationMessageFor(m => m.tipo_movimiento, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+
+    <div class="form-group">
+        <label for="saldo_actual">monto:</label>
+        <input type="number" class="form-control" id="monto" name="monto" required value="@Model?.monto" />
+        @Html.ValidationMessageFor(m => m.monto, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="form-group">
+
+        <input type="hidden" name="fecha_movimiento" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")" />
+
+        @Html.ValidationMessageFor(m => m.fecha_movimiento, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="descripcion">descripcion:</label>
+        <input type="text" class="form-control" id="descripcion" name="descripcion" required value="@Model?.descripcion" />
+        @Html.ValidationMessageFor(m => m.descripcion, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+
+
+
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    <a href="@Url.Action("Index", "MovimientoCredito")" class="btn btn-secondary">Cancelar</a>
+</form>

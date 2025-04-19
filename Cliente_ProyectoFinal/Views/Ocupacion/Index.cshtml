@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Cliente_ProyectoFinal.Models.MovimientoCredito.Class_MovimientoCredito>
+﻿@model IEnumerable<Cliente_ProyectoFinal.Models.Ocupaciones.Class_Ocupaciones>
 
 @{
-    ViewData["Title"] = "Lista de movimientos Credito";
+    ViewData["Title"] = "Lista de ocupaciones";
 }
 
 @{
@@ -42,7 +42,7 @@
 <h2>@ViewData["Title"]</h2>
 
 <!-- Botón para crear un nuevo producto -->
-<a href="@Url.Action("Crear", "MovimientoCredito")" class="btn btn-primary">Crear Nuevo Credito</a>
+<a href="@Url.Action("Crear", "Ocupacion")" class="btn btn-primary">Crear Nueva ocupacion</a>
 <br />
 <br />
 
@@ -59,37 +59,44 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Movimiento ID</th>
+            <th>ocupacion ID</th>
+            <th>habitacion ID</th>
+            <th>Cedula</th>
+            <th>Fecha Entrada</th>
+            <th>Fecha Salida</th>
+            <th>Uso de Credito</th>
             <th>Credito ID</th>
-            <th>Tipo Movimiento</th>
-            <th>Monto</th>
-            <th>Fecha Movimiento</th>
-            <th>Descripcion</th>
-          
+            <th>Estado</th>
+
+
 
 
         </tr>
     </thead>
     <tbody>
-        @foreach (var credito in Model)
+        @foreach (var ocu in Model)
         {
             <tr>
-                
-                <td>@credito.movimiento_ID</td>
-                <td>@credito.credito_ID</td>
-                <td>@credito.tipo_movimiento</td>
 
-                <td>@credito.monto.ToString("C")</td>
-               
-                <td>@credito.fecha_movimiento</td>
-                <td>@credito.descripcion</td>
+                <td>@ocu.ocupacion_ID</td>
+                
+                <td>@ocu.habitacion_ID</td>
+
+                <td>@ocu.Cedula_P</td>
+
+                <td>@ocu.fecha_entrada</td>
+                <td>@ocu.fecha_salida</td>
+                <td>@ocu.uso_credito</td>
+                <td>@ocu.credito_ID</td>
+                <td>@ocu.estado</td>
+
 
 
 
                 <td>
                     <!-- Enlaces para editar y eliminar -->
-                    <a href="@Url.Action("Editar", "MovimientosCredito", new { id = credito.credito_ID })" class="btn btn-warning">Editar</a>
-                    <a href="@Url.Action("Eliminar", "MovimientosCredito", new { id = credito.credito_ID })" class="btn btn-danger">Eliminar</a>
+                    <a href="@Url.Action("Editar", "Ocupacion", new { id = ocu.ocupacion_ID })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Eliminar", "Ocupacion", new { id = ocu.ocupacion_ID })" class="btn btn-danger">Eliminar</a>
 
                     <!-- Botón para ver video relacionado con este producto -->
 
@@ -98,5 +105,6 @@
         }
     </tbody>
 </table>
+
 
 
