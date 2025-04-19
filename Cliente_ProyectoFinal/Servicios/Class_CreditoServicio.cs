@@ -20,11 +20,12 @@ namespace Cliente_ProyectoFinal.Servicios
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var response = await client.GetAsync(__baseUrl + "Credito/ListaCredito");
+
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var jobject = JObject.Parse(json);
-                    var productos = jobject["value"]?.ToObject<List<Class_Credito>>();
+    
+                    var productos = JsonConvert.DeserializeObject<List<Class_Credito>>(json);
                     return productos ?? new List<Class_Credito>();
                 }
 

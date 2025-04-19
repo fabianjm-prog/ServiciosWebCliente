@@ -20,7 +20,7 @@ namespace Cliente_ProyectoFinal.Controllers
             _creditoService = creditoService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ObtenerCreditos()
         {
             try
             {
@@ -32,12 +32,12 @@ namespace Cliente_ProyectoFinal.Controllers
 
                 List<Class_Credito> creditos = await _creditoService.ObtenerCreditoAsync(token);
 
-                return View(creditos);
+                return View("Credito/ObtenerCreditos", creditos);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Error al obtener los creditos");
-                return View(new List<Class_Credito>());
+                return View("Credito/ObtenerCreditos", new List<Class_Credito>());
             }
         }
 
@@ -54,12 +54,12 @@ namespace Cliente_ProyectoFinal.Controllers
                     ViewBag.Mensaje = "No se encontraron créditos con esa cédula.";
                 }
 
-                return View(creditos);
+                return View("Credito/BuscarCreditosPorCedula", creditos);
             }
             catch
             {
                 ViewBag.Mensaje = "Ocurrió un error al buscar los créditos.";
-                return View(new List<Class_Credito>());
+                return View("Credito/BuscarCreditosPorCedula", new List<Class_Credito>());
             }
         }
 
