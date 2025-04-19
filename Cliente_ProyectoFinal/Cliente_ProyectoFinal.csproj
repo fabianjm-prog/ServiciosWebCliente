@@ -10,4 +10,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Habitaciones\" />
+    <Folder Include="Views\MovimientoCredito\" />
+    <Folder Include="Views\Ocupaciones\" />
+    <Folder Include="Views\Personas\" />
+  </ItemGroup>
+
 </Project>
