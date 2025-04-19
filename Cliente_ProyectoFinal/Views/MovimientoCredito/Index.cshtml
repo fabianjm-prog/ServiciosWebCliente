@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Cliente_ProyectoFinal.Models.MovimientoCredito.Class_MovimientoCredito>
+
+@{
+    ViewData["Title"] = "Lista de movimientos Credito";
+}
+
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+
+@{
+    var SuccessDeleteMessage = TempData["SuccessDeleteMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(SuccessDeleteMessage))
+{
+    <div class="alert alert-success">
+        @SuccessDeleteMessage
+    </div>
+}
+@{
+    var SuccessInsertMessage = TempData["SuccessInsertMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(SuccessInsertMessage))
+{
+    <div class="alert alert-success">
+        @SuccessInsertMessage
+    </div>
+}
+
+
+<!-- Aquí va el código para mostrar la lista de productos -->
+
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Botón para crear un nuevo producto -->
+<a href="@Url.Action("Crear", "MovimientosCredito")" class="btn btn-primary">Crear Nuevo Credito</a>
+<br />
+<br />
+
+<form asp-controller="Autenticacion" asp-action="Logout" method="post" style="display:inline;">
+    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+</form>
+
+
+<br />
+<br />
+
+
+<!-- Tabla para mostrar la lista de productos -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Movimiento ID</th>
+            <th>Credito ID</th>
+            <th>Tipo Movimiento</th>
+            <th>Monto</th>
+            <th>Fecha Movimiento</th>
+            <th>Descripcion</th>
+          
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var credito in Model)
+        {
+            <tr>
+                
+                <td>@credito.movimiento_ID</td>
+                <td>@credito.credito_ID</td>
+                <td>@credito.tipo_movimiento</td>
+
+                <td>@credito.monto.ToString("C")</td>
+               
+                <td>@credito.fecha_movimiento</td>
+                <td>@credito.descripcion</td>
+
+
+
+                <td>
+                    <!-- Enlaces para editar y eliminar -->
+                    <a href="@Url.Action("Editar", "MovimientosCredito", new { id = credito.credito_ID })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Eliminar", "MovimientosCredito", new { id = credito.credito_ID })" class="btn btn-danger">Eliminar</a>
+
+                    <!-- Botón para ver video relacionado con este producto -->
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
