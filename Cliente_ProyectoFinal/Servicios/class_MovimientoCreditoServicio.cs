@@ -55,6 +55,26 @@ namespace Cliente_ProyectoFinal.Servicios
                 }
             }
         }
+
+        public async Task<Class_MovimientoCredito> BuscarMovimientoPorIdAsync(int id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var response = await client.GetAsync(Class_Url.ReadUrl + $"MovimientoCreditos/BuscarMovimientoPorId/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var jobject = JObject.Parse(json);
+                    return jobject["value"]?.ToObject<Class_MovimientoCredito>();
+                }
+
+                return null;
+            }
+        }
+
         public async Task<bool> ActualizarMovimientoAsync(int id, Class_MovimientoCredito movimiento, string token)
         {
             using (var client = new HttpClient())

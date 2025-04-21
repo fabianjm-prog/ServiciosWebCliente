@@ -7,11 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\MovimientoCredito\Editar.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\MovimientoCredito\Editar.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\MovimientoCredito\Editar.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\MovimientoCredito\Editar.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -69,5 +69,37 @@ namespace Cliente_ProyectoFinal.Controllers
             return View(movcredito);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            string token = HttpContext.Session.GetString("Token");
+
+            var movimiento = await _movcreditoService.BuscarMovimientoPorIdAsync(id, token);
+            if (movimiento == null)
+                return NotFound();
+
+            return View(movimiento);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(int id, Class_MovimientoCredito movimiento)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.Session.GetString("Token");
+                bool exito = await _movcreditoService.ActualizarMovimientoAsync(id, movimiento, token);
+
+                if (exito)
+                {
+                    TempData["Mensaje"] = "Movimiento actualizado correctamente.";
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("", "Error al actualizar el movimiento.");
+            }
+
+            return View(movimiento);
+        }
+
     }
 }
