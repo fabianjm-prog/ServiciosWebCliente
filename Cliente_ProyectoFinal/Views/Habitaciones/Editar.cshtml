@@ -1,0 +1,42 @@
+﻿@model Cliente_ProyectoFinal.Models.Habitaciones.Class_Habitaciones
+
+@{
+    ViewData["Title"] = "Editar Habitación";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Mostrar errores de validación -->
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<form asp-action="Editar" method="post">
+    <input type="hidden" asp-for="habitacion_ID" />
+
+    <div class="form-group">
+        <label for="numero">Número de habitación:</label>
+        <input asp-for="numero" class="form-control" />
+        @Html.ValidationMessageFor(model => model.numero, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="tipo_ID">Tipo de habitación (ID):</label>
+        <input asp-for="tipo_ID" type="number" class="form-control" />
+        @Html.ValidationMessageFor(model => model.tipo_ID, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="estado">Estado:</label>
+        <select asp-for="estado" class="form-control">
+            <option value="Disponible">Disponible</option>
+            <option value="Ocupada">Ocupada</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+        </select>
+        @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

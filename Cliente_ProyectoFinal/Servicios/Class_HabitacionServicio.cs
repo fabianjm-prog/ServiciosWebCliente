@@ -55,6 +55,26 @@ namespace Cliente_ProyectoFinal.Servicios
                 }
             }
         }
+
+        public async Task<Class_Habitaciones> BuscarHabitacionPorIdAsync(int id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var response = await client.GetAsync(Class_Url.ReadUrl + $"Habitacion/BuscarHabitacionPorId/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var jobject = JObject.Parse(json);
+                    return jobject["value"]?.ToObject<Class_Habitaciones>();
+                }
+
+                return null;
+            }
+        }
+
         public async Task<bool> ActualizarHabitacionAsync(int id, Class_Habitaciones habitacion, string token)
         {
             using (var client = new HttpClient())

@@ -68,5 +68,39 @@ namespace Cliente_ProyectoFinal.Controllers
 
             return View(habi);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            string token = HttpContext.Session.GetString("Token");
+
+            var habitacion = await _habitacionesService.BuscarHabitacionPorIdAsync(id, token);
+            if (habitacion == null)
+                return NotFound();
+
+            return View(habitacion);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(int id, Class_Habitaciones habitacion)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.Session.GetString("Token");
+                var exito = await _habitacionesService.ActualizarHabitacionAsync(id, habitacion, token);
+
+                if (exito)
+                {
+                    TempData["Mensaje"] = "Habitación actualizada correctamente.";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "No se pudo actualizar la habitación.");
+                }
+            }
+
+            return View(habitacion);
+        }
     }
 }
