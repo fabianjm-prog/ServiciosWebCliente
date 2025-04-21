@@ -8,8 +8,8 @@
 
         public string tipo_movimiento { get; set; }
 
-        public double monto { get; set; }
-
+        //public double monto { get; set; }
+        public decimal monto { get; set; }
 
         public DateTime? fecha_movimiento { get; set; }
         public string? descripcion { get; set; }
