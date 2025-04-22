@@ -93,7 +93,7 @@ namespace Cliente_ProyectoFinal.Servicios
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var response = await client.DeleteAsync(Class_Url.DeleteUrl + $"MovimientosCredito/EliminarMovimiento/{id}");
+                var response = await client.DeleteAsync(Class_Url.DeleteUrl + $"MovimientoCredito/EliminarMovCredito/{id}");
                 return response.IsSuccessStatusCode;
             }
         }

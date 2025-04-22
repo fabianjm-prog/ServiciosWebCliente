@@ -100,7 +100,8 @@
                 <td>
                     <!-- Enlaces para editar y eliminar -->
                     <a href="@Url.Action("Editar", "MovimientoCredito", new { id = credito.movimiento_ID })" class="btn btn-warning">Editar</a>
-                    <a href="@Url.Action("Eliminar", "MovimientoCredito", new { id = credito.movimiento_ID })" class="btn btn-danger">Eliminar</a>
+                    <button class="btn btn-danger" onclick="confirmarEliminacion(@credito.movimiento_ID)">Eliminar</button>
+
 
                     <!-- Botón para ver video relacionado con este producto -->
 
@@ -116,7 +117,26 @@
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script>
+        function confirmarEliminacion(id) {
+            Swal.fire({
+                title: '¿Estás segura?',
+                text: "¡Esta acción no se puede deshacer!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/MovimientoCredito/Eliminar/' + id;
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>

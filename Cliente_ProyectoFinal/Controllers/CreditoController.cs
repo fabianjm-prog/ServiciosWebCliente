@@ -120,7 +120,7 @@ namespace Cliente_ProyectoFinal.Controllers
             return View(credito);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Eliminar(int id)
         {
             try

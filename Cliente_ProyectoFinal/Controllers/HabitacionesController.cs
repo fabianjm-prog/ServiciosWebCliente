@@ -103,7 +103,7 @@ namespace Cliente_ProyectoFinal.Controllers
             return View(habitacion);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Eliminar(int id)
         {
             try

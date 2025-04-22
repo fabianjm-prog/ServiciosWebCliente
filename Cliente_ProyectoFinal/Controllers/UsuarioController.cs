@@ -94,5 +94,30 @@ namespace Cliente_ProyectoFinal.Controllers
 
             return View(habi);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            try
+            {
+                string token = HttpContext.Session.GetString("Token");
+                bool eliminado = await _personaService.EliminarUsuarioAsync(id, token);
+
+                if (eliminado)
+                {
+                    TempData["Mensaje"] = "Ocupación eliminada correctamente.";
+                }
+                else
+                {
+                    TempData["Error"] = "No se pudo eliminar la ocupación.";
+                }
+            }
+            catch
+            {
+                TempData["Error"] = "Ocurrió un error al eliminar la ocupación.";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

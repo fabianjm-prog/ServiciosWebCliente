@@ -63,7 +63,7 @@
 
             <div class="form-group">
 
-                <input type="hidden" name="uso_credito" value="1" />
+                <input type="hidden" name="uso_credito" value="false" />
 
                 @Html.ValidationMessageFor(m => m.uso_credito, "", new { @class = "text-danger" })
             </div>
@@ -79,9 +79,9 @@
             <div class="form-group">
                 <label for="estado">Estado:</label>
                 <select asp-for="estado" class="form-control">
-                    <option value="Activo" selected="@("Activo" == Model.estado)">Activo</option>
-                    <option value="Cancelado" selected="@("Cancelado" == Model.estado)">Cancelado</option>
-                    <option value="Vencido" selected="@("Vencido" == Model.estado)">Vencido</option>
+                    <option value="Activo" selected="@(Model?.estado == "Activo")">Activo</option>
+                    <option value="Cancelado" selected="@(Model?.estado == "Cancelado")">Cancelado</option>
+                    <option value="Vencido" selected="@(Model?.estado == "Vencido")">Vencido</option>
                 </select>
                 @Html.ValidationMessageFor(m => m.estado, "", new { @class = "text-danger" })
             </div>

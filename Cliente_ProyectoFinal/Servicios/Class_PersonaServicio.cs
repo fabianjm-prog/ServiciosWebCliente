@@ -85,7 +85,15 @@ namespace Cliente_ProyectoFinal.Servicios
                 }
             }
         }
-
+        public async Task<bool> EliminarUsuarioAsync(int id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var response = await client.DeleteAsync(Class_Url.DeleteUrl + $"Usuario/EliminarUsuario/{id}");
+                return response.IsSuccessStatusCode;
+            }
+        }
     }
 }
 
