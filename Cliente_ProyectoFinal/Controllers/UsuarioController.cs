@@ -119,5 +119,53 @@ namespace Cliente_ProyectoFinal.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Editar(string id)
+        {
+            string token = HttpContext.Session.GetString("Token");
+
+            var persona = await _personaService.BuscarPersonaPorCedulaAsync(id, token);
+            if (persona == null)
+                return NotFound();
+
+            ViewBag.Roles = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Administrador", Value = "1" },
+        new SelectListItem { Text = "Empleado", Value = "2" },
+        new SelectListItem { Text = "Cliente", Value = "3" }
+    };
+
+            return View(persona);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(String id, class_User persona)
+        {
+            if (ModelState.IsValid)
+            {
+
+                string token = HttpContext.Session.GetString("Token");
+                var exito = await _personaService.ActualizarPersonaAsync(id, persona, token);
+
+                if (exito)
+                {
+                    TempData["Mensaje"] = "Persona actualizada correctamente.";
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("", "No se pudo actualizar la persona.");
+            }
+                ViewBag.Roles = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Administrador", Value = "1" },
+        new SelectListItem { Text = "Empleado", Value = "2" },
+        new SelectListItem { Text = "Cliente", Value = "3" }
+    };
+
+            
+
+            return View(persona);
+        }
+
     }
 }

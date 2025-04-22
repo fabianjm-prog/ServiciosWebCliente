@@ -36,7 +36,7 @@ namespace Cliente_ProyectoFinal.Servicios
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var response = await client.GetAsync(Class_Url.ReadUrl + $"Personas/BuscarPersona/{CedulaP}");
+                var response = await client.GetAsync(Class_Url.ReadUrl + $"Persona/BuscarPersona/{CedulaP}");
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
@@ -47,19 +47,7 @@ namespace Cliente_ProyectoFinal.Servicios
                 return null;
             }
         }
-            public async Task<bool> ActualizarPersonaAsync(string cedula, class_User persona, string token)
-            {
-                using (var client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                    var json = JsonConvert.SerializeObject(persona);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var response = await client.PutAsync(Class_Url.UpdateUrl + $"Personas/ActualizarPersona/{cedula}", content);
-                    return response.IsSuccessStatusCode;
-                }
-            }
+            
         public async Task<string> CrearPersonaAsync(class_User habi, string token)
         {
 
@@ -94,6 +82,36 @@ namespace Cliente_ProyectoFinal.Servicios
                 return response.IsSuccessStatusCode;
             }
         }
+        public async Task<class_User> BuscarPersonaPorCedulaAsync(string id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var response = await client.GetAsync(Class_Url.ReadUrl + $"Persona/BuscarPersonaPorCedula/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var jobject = JObject.Parse(json);
+                    var persona = jobject["value"]?.ToObject<class_User>();
+                    return persona;
+                }
+                return null;
+            }
+        }
+        public async Task<bool> ActualizarPersonaAsync(string id, class_User persona, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var json = JsonConvert.SerializeObject(persona);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync(Class_Url.UpdateUrl + $"Personas/ActualizarPersona/{id}", content);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
     }
 }
 

@@ -1,0 +1,87 @@
+﻿@model Cliente_ProyectoFinal.Models.Usuario.class_User
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style_Admin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" /> <!-- Si usás Bootstrap -->
+</head>
+<body>
+    <div class="form-wrapper">
+
+        <h2>@ViewData["Title"]</h2>
+
+        <!-- Mostrar resumen de errores -->
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <form asp-action="Editar" method="post">
+            <input type="hidden" name="Cedula_P" value="@Model.Cedula_P" />
+
+
+
+            <div class="form-group">
+                <label for="Nombre_P">Nombre:</label>
+                <input type="text" class="form-control" id="Nombre_P" name="Nombre_P" required value="@Model?.Nombre_P" />
+                @Html.ValidationMessageFor(m => m.Nombre_P, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+
+            <div class="form-group">
+                <label for="Apellido_P">Apellido:</label>
+                <input type="text" class="form-control" id="Apellido_P" name="Apellido_P" required value="@Model?.Apellido_P" />
+                @Html.ValidationMessageFor(m => m.Apellido_P, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+
+            <div class="form-group">
+                <label for="Telefono_P">Telefono:</label>
+                <input type="text" class="form-control" id="Telefono_P" name="Telefono_P" required value="@Model?.Telefono_P" />
+                @Html.ValidationMessageFor(m => m.Telefono_P, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="Correo_P">Correo:</label>
+                <input type="email" class="form-control" id="Correo_P" name="Correo_P" required value="@Model?.Correo_P" />
+                @Html.ValidationMessageFor(m => m.Correo_P, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label for="Fecha_Nacimiento_p">Fecha_Nacimiento:</label>
+                <input type="date" class="form-control" id="Fecha_Nacimiento_p" name="Fecha_Nacimiento_p" required value="@Model?.Fecha_Nacimiento_P" />
+                @Html.ValidationMessageFor(m => m.Fecha_Nacimiento_P, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group">
+                
+                <input type="hidden" class="form-control" id="Contrasenna_P" name="Contrasenna_P" required value="@Model?.Contrasenna_P" />
+                @Html.ValidationMessageFor(m => m.Contrasenna_P, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label for="Rol_ID">Rol:</label>
+                @Html.DropDownListFor(m => m.Rol_ID, (IEnumerable<SelectListItem>)ViewBag.Roles, "Seleccione un rol", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Rol_ID, "", new { @class = "text-danger" })
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+     
+
+
+</body>
+</html>
+

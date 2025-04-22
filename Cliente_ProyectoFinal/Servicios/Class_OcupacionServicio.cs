@@ -56,6 +56,36 @@ namespace Cliente_ProyectoFinal.Servicios
                 }
             }
         }
+       
+
+        public async Task<bool> EliminarOcupacionAsync(int id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var response = await client.DeleteAsync(Class_Url.DeleteUrl + $"Ocupacion/EliminarOcupacion/{id}");
+                return response.IsSuccessStatusCode;
+            }
+        }
+        public async Task<Class_Ocupaciones> BuscarOcupacionPorIdAsync(int id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var response = await client.GetAsync(Class_Url.ReadUrl + $"Ocupacion/BuscarOcupacionPorId/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var jobject = JObject.Parse(json);
+                    return jobject["value"]?.ToObject<Class_Ocupaciones>();
+                }
+
+                return null;
+            }
+        }
+
         public async Task<bool> ActualizarOcupacionAsync(int id, Class_Ocupaciones ocupacion, string token)
         {
             using (var client = new HttpClient())
@@ -70,14 +100,5 @@ namespace Cliente_ProyectoFinal.Servicios
             }
         }
 
-        public async Task<bool> EliminarOcupacionAsync(int id, string token)
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var response = await client.DeleteAsync(Class_Url.DeleteUrl + $"Ocupacion/EliminarOcupacion/{id}");
-                return response.IsSuccessStatusCode;
-            }
-        }
     }
 }

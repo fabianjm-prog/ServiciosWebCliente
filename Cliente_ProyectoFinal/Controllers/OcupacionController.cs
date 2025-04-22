@@ -91,5 +91,39 @@ namespace Cliente_ProyectoFinal.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            string token = HttpContext.Session.GetString("Token");
+
+            var ocupacion = await _OcupacionService.BuscarOcupacionPorIdAsync(id, token);
+            if (ocupacion == null)
+                return NotFound();
+
+            return View(ocupacion);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(int id, Class_Ocupaciones ocupacion)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.Session.GetString("Token");
+                var exito = await _OcupacionService.ActualizarOcupacionAsync(id, ocupacion, token);
+
+                if (exito)
+                {
+                    TempData["Mensaje"] = "Ocupación actualizada correctamente.";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "No se pudo actualizar la ocupación.");
+                }
+            }
+
+            return View(ocupacion);
+        }
+
     }
 }

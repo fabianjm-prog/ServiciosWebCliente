@@ -1,0 +1,82 @@
+﻿@model Cliente_ProyectoFinal.Models.Ocupaciones.Class_Ocupaciones
+
+@{
+    ViewData["Title"] = "Editar Ocupacion";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style_Admin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" /> <!-- Si usás Bootstrap -->
+</head>
+<body>
+    <div class="form-wrapper">
+        <h2>@ViewData["Title"]</h2>
+
+        <!-- Mostrar errores de validación -->
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <form asp-action="Editar" method="post">
+            <input type="hidden" asp-for="ocupacion_ID" />
+
+            <div class="form-group">
+                <label for="habitacion_ID">ID de habitación:</label>
+                <input asp-for="habitacion_ID" class="form-control" />
+                @Html.ValidationMessageFor(model => model.habitacion_ID, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label for="Cedula_P">Cedula de Persona (ID):</label>
+                <input asp-for="Cedula_P" class="form-control" />
+                @Html.ValidationMessageFor(model => model.Cedula_P, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label for="fecha_entrada">Fecha de Entrada:</label>
+                <input asp-for="fecha_entrada" type="date" class="form-control" />
+                @Html.ValidationMessageFor(m => m.fecha_entrada, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label for="fecha_salida">Fecha de Salida:</label>
+                <input asp-for="fecha_salida" type="date" class="form-control" />
+                @Html.ValidationMessageFor(m => m.fecha_salida, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <input asp-for="uso_credito" type="hidden" class="form-control" value="false" />
+                @Html.ValidationMessageFor(model => model.uso_credito, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label for="credito_ID">ID del credito:</label>
+                <input asp-for="credito_ID" class="form-control" />
+                @Html.ValidationMessageFor(model => model.credito_ID, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select asp-for="estado" class="form-control">
+                    <option value="Activo" selected="@("Activo" == Model.estado)">Activo</option>
+                    <option value="Cancelado" selected="@("Cancelado" == Model.estado)">Cancelado</option>
+                    <option value="Vencido" selected="@("Vencido" == Model.estado)">Vencido</option>
+                </select>
+                @Html.ValidationMessageFor(m => m.estado, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
+

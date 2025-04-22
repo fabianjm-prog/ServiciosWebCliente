@@ -9,15 +9,10 @@
 
 
 <!-- Mostrar mensaje de autenticación -->
-@if (ViewBag.ErrorMessage != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @ViewBag.ErrorMessage
-    </div>
-}
+
 
 <!-- Mostrar resumen de errores -->
-@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -34,6 +29,13 @@
             <div class="card-header">
                 <h1>Iniciar Sesion</h1>
             </div>
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             <div class="card-body">
                 <form method="post">
                     <div class="form-group">
