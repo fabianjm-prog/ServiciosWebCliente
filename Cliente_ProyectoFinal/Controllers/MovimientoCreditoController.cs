@@ -101,5 +101,30 @@ namespace Cliente_ProyectoFinal.Controllers
             return View(movimiento);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            try
+            {
+                string token = HttpContext.Session.GetString("Token");
+                bool eliminado = await _movcreditoService.EliminarMovimientoAsync(id, token);
+
+                if (eliminado)
+                {
+                    TempData["Mensaje"] = "Movimiento eliminado correctamente.";
+                }
+                else
+                {
+                    TempData["Error"] = "No se pudo eliminar el movimiento.";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrió un error al eliminar el movimiento.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

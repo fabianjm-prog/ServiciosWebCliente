@@ -69,5 +69,15 @@ namespace Cliente_ProyectoFinal.Servicios
                 return response.IsSuccessStatusCode;
             }
         }
+
+        public async Task<bool> EliminarOcupacionAsync(int id, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var response = await client.DeleteAsync(Class_Url.DeleteUrl + $"Ocupacion/EliminarOcupacion/{id}");
+                return response.IsSuccessStatusCode;
+            }
+        }
     }
 }

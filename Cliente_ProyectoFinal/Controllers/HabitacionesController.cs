@@ -102,5 +102,26 @@ namespace Cliente_ProyectoFinal.Controllers
 
             return View(habitacion);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            try
+            {
+                string token = HttpContext.Session.GetString("Token");
+                bool eliminado = await _habitacionesService.EliminarHabitacionAsync(id, token);
+
+                TempData["Mensaje"] = eliminado
+                    ? "Habitación eliminada correctamente."
+                    : "No se pudo eliminar la habitación.";
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Ocurrió un error al eliminar la habitación.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

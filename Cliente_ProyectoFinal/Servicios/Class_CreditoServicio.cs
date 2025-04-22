@@ -106,6 +106,19 @@ namespace Cliente_ProyectoFinal.Servicios
             }
         }
 
+        public async Task<bool> EliminarCreditoAsync(int creditoID, string token)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var response = await client.DeleteAsync(Class_Url.DeleteUrl + $"Credito/EliminarCredito/{creditoID}");
+
+                return response.IsSuccessStatusCode;
+            }
+        }
+
+
 
     }
 }

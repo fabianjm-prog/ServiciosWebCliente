@@ -120,6 +120,30 @@ namespace Cliente_ProyectoFinal.Controllers
             return View(credito);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            try
+            {
+                string token = HttpContext.Session.GetString("Token");
+                bool eliminado = await _creditoService.EliminarCreditoAsync(id, token);
+
+                if (eliminado)
+                {
+                    TempData["Mensaje"] = "Crédito eliminado exitosamente.";
+                }
+                else
+                {
+                    TempData["Mensaje"] = "No se pudo eliminar el crédito.";
+                }
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Ocurrió un error al intentar eliminar el crédito.";
+            }
+
+            return RedirectToAction("Index");
+        }
 
 
 
