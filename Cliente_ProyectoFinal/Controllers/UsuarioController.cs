@@ -91,6 +91,12 @@ namespace Cliente_ProyectoFinal.Controllers
                     ModelState.AddModelError("", mensajeError);
                 }
             }
+            ViewBag.Roles = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Administrador", Value = "1" },
+        new SelectListItem { Text = "Empleado", Value = "2" },
+        new SelectListItem { Text = "Cliente", Value = "3" }
+    };
 
             return View(habi);
         }
