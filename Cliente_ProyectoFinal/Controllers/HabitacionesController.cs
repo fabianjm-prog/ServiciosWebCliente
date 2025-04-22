@@ -4,6 +4,7 @@ using Cliente_ProyectoFinal.Models.Credito;
 using System.Security.Cryptography.X509Certificates;
 using Cliente_ProyectoFinal.Models.Habitaciones;
 using Cliente_ProyectoFinal.Models.MovimientoCredito;
+using ClosedXML.Excel;
 
 namespace Cliente_ProyectoFinal.Controllers
 {
@@ -121,6 +122,43 @@ namespace Cliente_ProyectoFinal.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExportarExcel()
+        {
+            string token = HttpContext.Session.GetString("Token");
+            var listaHabitaciones = await _habitacionesService.ObtenerHabitacionAsync(token);
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Habitaciones");
+
+                // Encabezados
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "Número";
+                worksheet.Cell(1, 3).Value = "Tipo ID";
+                worksheet.Cell(1, 4).Value = "Estado";
+
+                int fila = 2;
+                foreach (var hab in listaHabitaciones)
+                {
+                    worksheet.Cell(fila, 1).Value = hab.habitacion_ID;
+                    worksheet.Cell(fila, 2).Value = hab.numero;
+                    worksheet.Cell(fila, 3).Value = hab.tipo_ID;
+                    worksheet.Cell(fila, 4).Value = hab.estado;
+                    fila++;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+                    return File(stream.ToArray(),
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "ReporteHabitaciones.xlsx");
+                }
+            }
         }
 
     }

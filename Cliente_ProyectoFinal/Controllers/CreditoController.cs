@@ -2,6 +2,8 @@
 using Cliente_ProyectoFinal.Servicios;
 using Cliente_ProyectoFinal.Models.Credito;
 using System.Security.Cryptography.X509Certificates;
+using ClosedXML.Excel;
+using System.Data;
 
 
 namespace Cliente_ProyectoFinal.Controllers
@@ -145,7 +147,46 @@ namespace Cliente_ProyectoFinal.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ExportarExcel()
+        {
+            string token = HttpContext.Session.GetString("Token");
+            var listaCreditos = await _creditoService.ObtenerCreditoAsync(token);
 
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Créditos");
+
+                // Encabezados
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "Cédula";
+                worksheet.Cell(1, 3).Value = "Monto Máximo";
+                worksheet.Cell(1, 4).Value = "Saldo Actual";
+                worksheet.Cell(1, 5).Value = "Fecha Creación";
+                worksheet.Cell(1, 6).Value = "Fecha Vencimiento";
+                worksheet.Cell(1, 7).Value = "Estado";
+
+                int fila = 2;
+                foreach (var credito in listaCreditos)
+                {
+                    worksheet.Cell(fila, 1).Value = credito.credito_ID;
+                    worksheet.Cell(fila, 2).Value = credito.Cedula_P;
+                    worksheet.Cell(fila, 3).Value = credito.monto_maximo;
+                    worksheet.Cell(fila, 4).Value = credito.saldo_actual;
+                    worksheet.Cell(fila, 5).Value = credito.fecha_creacion?.ToString("yyyy-MM-dd");
+                    worksheet.Cell(fila, 6).Value = credito.fecha_vencimiento?.ToString("yyyy-MM-dd");
+                    worksheet.Cell(fila, 7).Value = credito.estado;
+                    fila++;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ReporteCreditos.xlsx");
+                }
+            }
+        }
 
 
 

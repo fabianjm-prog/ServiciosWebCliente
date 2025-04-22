@@ -49,7 +49,6 @@ namespace Cliente_ProyectoFinal.Servicios
                 }
                 else
                 {
-                    // Deserializa y devuelve el mensaje de error
                     var errorResponse = JsonConvert.DeserializeObject<ApiResponse<object>>(responseBody);
                     return errorResponse?.mensaje ?? "Error desconocido al crear el movimiento.";
                 }

@@ -41,22 +41,25 @@
 
         <h2>@ViewData["Title"]</h2>
 
-        <a href="@Url.Action("Crear", "Credito")" class="btn btn-success">Crear Nuevo Credito</a>
+        <!-- Botones de acción -->
+        <div class="mb-3">
+            <a href="@Url.Action("Crear", "Credito")" class="btn btn-success">Crear Nuevo Credito</a>
+            <a href="@Url.Action("ExportarExcel", "Credito")" class="btn btn-outline-primary ms-2">Descargar Excel</a>
+        </div>
 
-        <br /><br />
-
+        <!-- Tabla de créditos -->
         <div class="table-wrapper">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Credito ID</th>
-                        <th>Cedula Encargado</th>
+                        <th>Cédula Encargado</th>
                         <th>Monto MAX</th>
                         <th>Saldo Actual</th>
-                        <th>Fecha de Creacion</th>
+                        <th>Fecha de Creación</th>
                         <th>Fecha de Vencimiento</th>
                         <th>Estado</th>
-                        <th>Botones</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,12 +70,12 @@
                             <td>@credito.Cedula_P</td>
                             <td>@credito.monto_maximo.ToString("C")</td>
                             <td>@credito.saldo_actual.ToString("C")</td>
-                            <td>@credito.fecha_creacion</td>
-                            <td>@credito.fecha_vencimiento</td>
+                            <td>@credito.fecha_creacion?.ToString("yyyy-MM-dd")</td>
+                            <td>@credito.fecha_vencimiento?.ToString("yyyy-MM-dd")</td>
                             <td>@credito.estado</td>
                             <td>
-                                <a href="@Url.Action("Editar", "Credito", new { id = credito.credito_ID })" class="btn btn-warning">Editar</a>
-                                <button class="btn btn-danger" onclick="confirmarEliminacion(@credito.credito_ID)">Eliminar</button>
+                                <a href="@Url.Action("Editar", "Credito", new { id = credito.credito_ID })" class="btn btn-warning btn-sm">Editar</a>
+                                <button class="btn btn-danger btn-sm" onclick="confirmarEliminacion(@credito.credito_ID)">Eliminar</button>
                             </td>
                         </tr>
                     }
@@ -81,13 +84,13 @@
         </div>
     </div>
 
-    <!-- Librería de SweetAlert2 -->
+    <!-- SweetAlert2 para confirmación de eliminación -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         function confirmarEliminacion(id) {
             Swal.fire({
-                title: '¿Estás segura?',
+                title: '¿Estás seguro?',
                 text: "¡Esta acción no se puede deshacer!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -104,3 +107,4 @@
     </script>
 </body>
 </html>
+
