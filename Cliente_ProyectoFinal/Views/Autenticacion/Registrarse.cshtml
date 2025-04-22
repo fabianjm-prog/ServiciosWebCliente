@@ -1,0 +1,98 @@
+﻿@model Cliente_ProyectoFinal.Models.Usuario.class_User
+
+@{
+    ViewData["Title"] = "Registrate";
+     Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Mostrar resumen de errores -->
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<br />
+
+<form asp-controller="Autenticacion" asp-action="Logout" method="post" style="display:inline;">
+    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+</form>
+
+
+<br />
+
+<form method="post">
+    <div class="form-group">
+        <label for="Cedula_P">Cedula:</label>
+        <input type="text" class="form-control" id="Cedula_P" name="Cedula_P" required value="@Model?.Cedula_P" />
+        @Html.ValidationMessageFor(m => m.Cedula_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+
+
+    <div class="form-group">
+        <label for="Nombre_P">Nombre:</label>
+        <input type="text" class="form-control" id="Nombre_P" name="Nombre_P" required value="@Model?.Nombre_P" />
+        @Html.ValidationMessageFor(m => m.Nombre_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+
+    <div class="form-group">
+        <label for="Apellido_P">Apellido:</label>
+        <input type="text" class="form-control" id="Apellido_P" name="Apellido_P" required value="@Model?.Apellido_P" />
+        @Html.ValidationMessageFor(m => m.Apellido_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    
+
+    <div class="form-group">
+        <label for="Telefono_P">Telefono:</label>
+        <input type="text" class="form-control" id="Telefono_P" name="Telefono_P" required value="@Model?.Telefono_P" />
+        @Html.ValidationMessageFor(m => m.Telefono_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Correo_P">Correo:</label>
+        <input type="email" class="form-control" id="Correo_P" name="Correo_P" required value="@Model?.Correo_P" />
+        @Html.ValidationMessageFor(m => m.Correo_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="form-group">
+
+        <input type="hidden" name="Fecha_Registro_P" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")" />
+
+        @Html.ValidationMessageFor(m => m.Fecha_Registro_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Fecha_Nacimiento_p">Fecha_Nacimiento:</label>
+        <input type="date" class="form-control" id="Fecha_Nacimiento_p" name="Fecha_Nacimiento_p" required value="@Model?.Fecha_Nacimiento_P" />
+        @Html.ValidationMessageFor(m => m.Fecha_Nacimiento_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Contrasenna_P">Contrasenna:</label>
+        <input type="text" class="form-control" id="Contrasenna_P" name="Contrasenna_P" required value="@Model?.Contrasenna_P" />
+        @Html.ValidationMessageFor(m => m.Contrasenna_P, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="form-group">
+
+        <input type="hidden" name="rol_ID" value="1" />
+
+        @Html.ValidationMessageFor(m => m.Rol_ID, "", new { @class = "text-danger" })
+    </div>
+    <br />
+    
+    
+
+    
+
+
+
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    <a href="@Url.Action("Index", "Credito")" class="btn btn-secondary">Cancelar</a>
+</form>

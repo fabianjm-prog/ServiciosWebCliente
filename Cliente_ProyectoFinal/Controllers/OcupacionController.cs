@@ -26,13 +26,13 @@ namespace Cliente_ProyectoFinal.Controllers
 
                 string token = HttpContext.Session.GetString("Token");
 
-                List<Class_Ocupaciones> habi = await _OcupacionService.ObtenerOcupacionAsync(token);
+                List<Class_Ocupaciones> creditos = await _OcupacionService.ObtenerOcupacionesAsync(token);
 
-                return View(habi);
+                return View(creditos);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Error al obtener las ocupaciones");
+                ModelState.AddModelError("", "Error al obtener los creditos");
                 return View(new List<Class_Ocupaciones>());
             }
         }

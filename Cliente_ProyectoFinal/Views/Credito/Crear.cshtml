@@ -2,7 +2,19 @@
 
 @{
     ViewData["Title"] = "Crear Credito";
+
 }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style_Admin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" /> <!-- Si usás Bootstrap -->
+</head>
+<body>
+    <div class="form-wrapper">
+
 
 <h2>@ViewData["Title"]</h2>
 
@@ -17,7 +29,6 @@
 
 
 <br />
-
 <form method="post">
     <div class="form-group">
         <label for="Cedula_P">Cedula:</label>
@@ -60,8 +71,16 @@
 
     <input type="hidden" name="estado" value="Activo" />
 
-    
 
-    <button type="submit" class="btn btn-primary">Agregar</button>
+
+            <button type="submit" class="btn btn-success">Agregar</button>
     <a href="@Url.Action("Index", "Credito")" class="btn btn-secondary">Cancelar</a>
 </form>
+
+    </div>
+
+
+
+</body>
+</html>
+

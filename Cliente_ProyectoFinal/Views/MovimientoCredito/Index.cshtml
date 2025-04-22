@@ -37,12 +37,21 @@
 
 
 <!-- Aquí va el código para mostrar la lista de productos -->
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style_Admin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" /> <!-- Si usás Bootstrap -->
+</head>
+<body>
+    <div class="form-wrapper">
 
 <h2>@ViewData["Title"]</h2>
 
 <!-- Botón para crear un nuevo producto -->
-<a href="@Url.Action("Crear", "MovimientoCredito")" class="btn btn-primary">Crear Nuevo Credito</a>
+        <a href="@Url.Action("Crear", "MovimientoCredito")" class="btn btn-success">Crear Nuevo Credito</a>
 <br />
 <br />
 
@@ -55,8 +64,8 @@
 <br />
 
 
-<!-- Tabla para mostrar la lista de productos -->
-<table class="table table-bordered">
+        <div class="table-wrapper">
+<table >
     <thead>
         <tr>
             <th>Movimiento ID</th>
@@ -65,6 +74,8 @@
             <th>Monto</th>
             <th>Fecha Movimiento</th>
             <th>Descripcion</th>
+            <th>Botones</th>
+
           
 
 
@@ -100,3 +111,12 @@
 </table>
 
 
+    </div>
+
+
+    </div>
+
+
+
+</body>
+</html>

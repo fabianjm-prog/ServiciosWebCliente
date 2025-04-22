@@ -1,6 +1,7 @@
 ﻿using Cliente_ProyectoFinal.ApiUrls;
 using Cliente_ProyectoFinal.Models;
 using Cliente_ProyectoFinal.Models.Ocupaciones;
+using Cliente_ProyectoFinal.Models.Usuario;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
@@ -10,20 +11,22 @@ namespace Cliente_ProyectoFinal.Servicios
 {
     public class Class_OcupacionServicio
     {
-        public async Task<List<Class_Ocupaciones>> ObtenerOcupacionAsync(string token)
+        public async Task<List<Class_Ocupaciones>> ObtenerOcupacionesAsync(string token)
         {
+
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var response = await client.GetAsync(Class_Url.ReadUrl + "Ocupacion/ListaOcupaciones");
                 if (response.IsSuccessStatusCode)
                 {
-                    var json = await response.Content.ReadAsStringAsync();
-                    var jobject = JObject.Parse(json);
-                    var productos = jobject["value"]?.ToObject<List<Class_Ocupaciones>>();
-                    return productos ?? new List<Class_Ocupaciones>();
-                }
+                    
+                        var json = await response.Content.ReadAsStringAsync();
+                        var jobject = JObject.Parse(json);
 
+                        var personas = jobject["value"]?.ToObject<List<Class_Ocupaciones>>();
+                        return personas ?? new List<Class_Ocupaciones>();
+                }
                 return new List<Class_Ocupaciones>();
             }
         }

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Cliente_ProyectoFinal.Models.Ocupaciones.Class_Ocupaciones>
+﻿@model IEnumerable<Cliente_ProyectoFinal.Models.Usuario.class_User>
 
 @{
-    ViewData["Title"] = "Lista de ocupaciones";
+    ViewData["Title"] = "Lista de Usuarios";
 }
 
 @{
@@ -35,6 +35,8 @@
     </div>
 }
 
+
+<!-- Aquí va el código para mostrar la lista de productos -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,14 +48,10 @@
 <body>
     <div class="form-wrapper">
 
-
-<!-- Aquí va el código para mostrar la lista de productos -->
-
-
 <h2>@ViewData["Title"]</h2>
 
 <!-- Botón para crear un nuevo producto -->
-        <a href="@Url.Action("Crear", "Ocupacion")" class="btn btn-success">Crear Nueva ocupacion</a>
+        <a href="@Url.Action("Crear", "Usuario")" class="btn btn-success">Crear Nuevo Usuario</a>
 <br />
 <br />
 
@@ -64,22 +62,21 @@
 
 <br />
 <br />
-
-
         <div class="table-wrapper">
+
+
 <table >
     <thead>
         <tr>
-            <th>ocupacion ID</th>
-            <th>habitacion ID</th>
             <th>Cedula</th>
-            <th>Fecha Entrada</th>
-            <th>Fecha Salida</th>
-            <th>Uso de Credito</th>
-            <th>Credito ID</th>
-            <th>Estado</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Fecha Registro</th>
+            <th>Fecha Nacimiento</th>
+            <th>Rol_ID</th>
             <th>Botones</th>
-
 
 
 
@@ -87,29 +84,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var ocu in Model)
+        @foreach (var Usuarios in Model)
         {
             <tr>
+                <td>@Usuarios.Cedula_P</td>
+                <td>@Usuarios.Nombre_P</td>
+                <td>@Usuarios.Apellido_P</td> 
+                <td>@Usuarios.Telefono_P</td>
+                <td>@Usuarios.Correo_P</td>
+                <td>@Usuarios.Fecha_Registro_P</td>
+                <td>@Usuarios.Fecha_Nacimiento_P</td>
+                <td>@Usuarios.Rol_ID</td>
 
-                <td>@ocu.ocupacion_ID</td>
-                
-                <td>@ocu.habitacion_ID</td>
-
-                <td>@ocu.Cedula_P</td>
-
-                <td>@ocu.fecha_entrada</td>
-                <td>@ocu.fecha_salida</td>
-                <td>@ocu.uso_credito</td>
-                <td>@ocu.credito_ID</td>
-                <td>@ocu.estado</td>
 
 
 
 
                 <td>
                     <!-- Enlaces para editar y eliminar -->
-                    <a href="@Url.Action("Editar", "Ocupacion", new { id = ocu.ocupacion_ID })" class="btn btn-warning">Editar</a>
-                    <a href="@Url.Action("Eliminar", "Ocupacion", new { id = ocu.ocupacion_ID })" class="btn btn-danger">Eliminar</a>
+                    <a href="@Url.Action("Editar", "Usuario", new { id = Usuarios.Cedula_P })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Eliminar", "Usuario", new { id = Usuarios.Cedula_P })" class="btn btn-danger">Eliminar</a>
 
                     <!-- Botón para ver video relacionado con este producto -->
 
@@ -118,7 +112,6 @@
         }
     </tbody>
 </table>
-
 
 
     </div>

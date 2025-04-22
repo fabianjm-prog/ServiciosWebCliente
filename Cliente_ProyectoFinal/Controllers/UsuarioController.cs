@@ -2,6 +2,8 @@
 using Cliente_ProyectoFinal.Servicios;
 using Cliente_ProyectoFinal.Models.Usuario;
 using System.Security.Cryptography.X509Certificates;
+using Cliente_ProyectoFinal.Models.Ocupaciones;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 
@@ -18,7 +20,7 @@ namespace Cliente_ProyectoFinal.Controllers
             _personaService = personaService;
         }
 
-        public async Task<IActionResult> Lista_Usuarios()
+        public async Task<IActionResult> Index()
         {
             try
             {
@@ -53,6 +55,44 @@ namespace Cliente_ProyectoFinal.Controllers
                 ViewBag.Mensaje = "Ocurrió un error al buscar los datos de la persona.";
                 return View("", new List<class_User>());
             }
+        }
+
+        
+        [HttpGet]
+        public IActionResult Crear()
+        {
+            ViewBag.Roles = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Administrador", Value = "1" },
+        new SelectListItem { Text = "Empleado", Value = "2" },
+        new SelectListItem { Text = "Cliente", Value = "3" }
+    };
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Crear(class_User habi)
+        {
+            if (ModelState.IsValid)
+            {
+                string token = HttpContext.Session.GetString("Token");
+
+
+                var mensajeError = await _personaService.CrearPersonaAsync(habi, token);
+
+                if (mensajeError == null)
+                {
+                    TempData["Mensaje"] = "ocupacion creada exitosamente.";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", mensajeError);
+                }
+            }
+
+            return View(habi);
         }
     }
 }

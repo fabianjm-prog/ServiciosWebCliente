@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 using Cliente_ProyectoFinal.Models.Usuario;
+using Cliente_ProyectoFinal.ApiUrls;
 
 
 
@@ -9,7 +10,6 @@ namespace Cliente_ProyectoFinal.Servicios
     public class class_AutenticacionServicio
     {
 
-        private readonly string _baseUrl = "https://localhost:7254/api/";
 
 
         public async Task<bool> RegistrarUsuarioAsync(class_User usuario)
@@ -21,7 +21,7 @@ namespace Cliente_ProyectoFinal.Servicios
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
 
-                var response = await client.PostAsync(_baseUrl + "Acceso/Registrarse", content);
+                var response = await client.PostAsync(Class_Url.LoginUrl + "Acceso/Registrarse", content);
 
 
                 return response.IsSuccessStatusCode;
@@ -33,7 +33,7 @@ namespace Cliente_ProyectoFinal.Servicios
             {
                 var json = JsonConvert.SerializeObject(usuario);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(_baseUrl + "Acceso/Login", content);
+                var response = await client.PostAsync(Class_Url.LoginUrl + "Acceso/Login", content);
 
                 if (response.IsSuccessStatusCode)
                 {

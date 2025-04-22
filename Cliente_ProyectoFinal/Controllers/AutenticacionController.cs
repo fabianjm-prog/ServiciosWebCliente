@@ -87,7 +87,7 @@ namespace Cliente_ProyectoFinal.Controllers
                     {
 
                         TempData["Mensaje"] = "Registro existoso, Inicia sesion";
-                        return RedirectToAction("Registrarse");
+                        return RedirectToAction("Index", "Autenticacion");
 
                     }
                     else
