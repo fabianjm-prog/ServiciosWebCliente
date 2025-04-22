@@ -18,15 +18,17 @@
 
 <h2>@ViewData["Title"]</h2>
 
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
 <!-- Mostrar resumen de errores -->
 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
 <br />
-
-<form asp-controller="Autenticacion" asp-action="Logout" method="post" style="display:inline;">
-    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
-</form>
-
 
 <br />
 

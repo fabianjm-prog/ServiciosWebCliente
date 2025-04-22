@@ -18,7 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Credito" asp-action="Index">Creditos</a>
                         </li>
@@ -34,8 +34,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>
                         </li>
-                        
                     </ul>
+
+                    <!-- Botón de cerrar sesión alineado a la derecha -->
+                    <form asp-controller="Autenticacion" asp-action="Logout" method="post" class="d-flex ms-auto">
+                        <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+                    </form>
+                        
                 </div>
             </div>
         </nav>

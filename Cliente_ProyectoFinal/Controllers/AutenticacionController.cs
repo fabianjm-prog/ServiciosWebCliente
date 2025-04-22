@@ -81,34 +81,26 @@ namespace Cliente_ProyectoFinal.Controllers
             {
                 try
                 {
-                    bool exito = await _authService.RegistrarUsuarioAsync(usuario);
+                    string mensajeError = await _authService.RegistrarUsuarioAsync(usuario);
 
-                    if (exito)
+                    if (mensajeError == null)
                     {
-
-                        TempData["Mensaje"] = "Registro existoso, Inicia sesion";
+                        TempData["Mensaje"] = "Registro existoso, Inicia sesión";
                         return RedirectToAction("Index", "Autenticacion");
-
                     }
                     else
                     {
-                        TempData["Error"] = "Hubo un error al registrarte, por favor intentalo luego";
-
+                        ViewBag.ErrorMessage = mensajeError;
                     }
-
                 }
                 catch (Exception ex)
                 {
-
-                    TempData["Error"] = "Hubo un error, por favor intentalo luego";
-
+                    ViewBag.ErrorMessage = "Hubo un error inesperado, por favor intentalo luego.";
                 }
-
             }
             else
             {
-                TempData["Error"] = "verifica los campos, datos invalidos";
-
+                ViewBag.ErrorMessage = "Verifica los campos, hay datos inválidos.";
             }
 
             return View(usuario);
